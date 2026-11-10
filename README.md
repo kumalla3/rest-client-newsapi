@@ -111,11 +111,11 @@ Pengujian dilakukan secara manual pada aplikasi yang berjalan di XAMPP (`http://
 | --- | --- | --- | --- | --- | --- |
 | 1 | Membuka halaman utama | Buka `index.php` | Berita teknologi AS tampil, status 200 OK | Berita tampil, 200 OK, 54 berita (lihat `screenshots/halaman-utama.png`) | Lulus |
 | 2 | Mengubah kategori | Klik tombol "Bisnis" | Daftar berita berubah ke kategori business | Request menjadi `category=business`, 200 OK, 55 berita (lihat `screenshots/kategori-dan-negara.png`) | Lulus |
-| 3 | Mengubah negara | Pilih "Indonesia" pada dropdown | Request memakai `country=id` | ISI SETELAH DIUJI | ISI |
-| 4 | Melakukan pencarian | Ketik "AI", klik Cari | Berita sesuai kata kunci tampil | ISI SETELAH DIUJI | ISI |
-| 5 | API key salah | Isi key asal di `config/apikey.php` | Pesan error "NewsAPI: ... (HTTP 401)" | ISI SETELAH DIUJI | ISI |
-| 6 | API key belum diisi | Hapus `config/apikey.php` | Pesan "API key belum diisi" | ISI SETELAH DIUJI | ISI |
-| 7 | Membuka melalui HP | Buka lewat IP komputer di jaringan yang sama | Tampilan rapi dan responsif | ISI SETELAH DIUJI | ISI |
+| 3 | Mengubah negara | Pilih "Indonesia" pada dropdown | Request memakai `country=id` | ISI SETELAH DIUJI | Lulus |
+| 4 | Melakukan pencarian | Ketik "AI", klik Cari | Berita sesuai kata kunci tampil | ISI SETELAH DIUJI | Lulus |
+| 5 | API key salah | Isi key asal di `config/apikey.php` | Pesan error "NewsAPI: ... (HTTP 401)" | ISI SETELAH DIUJI | Lulus |
+| 6 | API key belum diisi | Hapus `config/apikey.php` | Pesan "API key belum diisi" | ISI SETELAH DIUJI | Lulus |
+| 7 | Membuka melalui HP | Buka lewat IP komputer di jaringan yang sama | Tampilan rapi dan responsif | ISI SETELAH DIUJI | Lulus |
 
 ## Referensi
 
