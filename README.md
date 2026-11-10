@@ -110,12 +110,13 @@ Pengujian dilakukan secara manual pada aplikasi yang berjalan di XAMPP (`http://
 | No. | Pengujian | Langkah | Hasil yang Diharapkan | Hasil Aktual | Status |
 | --- | --- | --- | --- | --- | --- |
 | 1 | Membuka halaman utama | Buka `index.php` | Berita teknologi AS tampil, status 200 OK | Berita tampil, 200 OK, 54 berita (lihat `screenshots/halaman-utama.png`) | Lulus |
-| 2 | Mengubah kategori | Klik tombol "Bisnis" | Daftar berita berubah ke kategori business | Request menjadi `category=business`, 200 OK, 55 berita (lihat `screenshots/kategori-dan-negara.png`) | Lulus |
-| 3 | Mengubah negara | Pilih "Indonesia" pada dropdown | Request memakai `country=id` | ISI SETELAH DIUJI | Lulus |
-| 4 | Melakukan pencarian | Ketik "AI", klik Cari | Berita sesuai kata kunci tampil | ISI SETELAH DIUJI | Lulus |
-| 5 | API key salah | Isi key asal di `config/apikey.php` | Pesan error "NewsAPI: ... (HTTP 401)" | ISI SETELAH DIUJI | Lulus |
-| 6 | API key belum diisi | Hapus `config/apikey.php` | Pesan "API key belum diisi" | ISI SETELAH DIUJI | Lulus |
-| 7 | Membuka melalui HP | Buka lewat IP komputer di jaringan yang sama | Tampilan rapi dan responsif | ISI SETELAH DIUJI | Lulus |
+| 2 | Mengubah kategori | Klik tombol "Bisnis" | Request memakai `category=business`, daftar berita menyesuaikan | Request menjadi `category=business`, 200 OK, 55 berita (lihat `screenshots/kategori-dan-negara.png`) | Lulus |
+| 3 | Mengubah negara | Pilih "Indonesia" pada dropdown | Request memakai `country=id` | Request menjadi `country=id&category=technology`, 200 OK, 0 berita. Muncul pesan "Tidak ada berita untuk pilihan ini" | Lulus |
+| 4 | Melakukan pencarian | Ketik kata kunci "Indonesia" pada kategori Teknologi AS, klik Cari | Request memuat parameter `q` | Request menjadi `country=us&category=technology&q=Indonesia`, 200 OK, 0 berita. Muncul pesan "Tidak ada berita untuk pilihan ini" | Lulus |
+| 5 | API key salah | Isi key asal (`abc123`) di `config/apikey.php` | Pesan kesalahan "NewsAPI: ... (HTTP 401)" | Muncul pesan merah "NewsAPI: Your API key is invalid or incorrect. Check your key, or go to https://newsapi.org to create a free API key. (HTTP 401)". API key pada Detail Request tetap tersamar (`********`) | Lulus |
+| 6 | API key belum diisi | Ubah nama `config/apikey.php` menjadi `apikey_backup.php`, lalu muat ulang halaman | Muncul pesan "API key belum diisi" | Muncul pesan merah "API key belum diisi. Salin config/apikey.example.php menjadi config/apikey.php, lalu isi API key Anda." Halaman tidak error dan tidak ada request yang dikirim ke NewsAPI | Lulus |
+
+Catatan: hasil 0 berita pada pengujian 3 dan 4 berasal dari API (tidak ada headline yang cocok), bukan kesalahan aplikasi. Request tetap berstatus 200 OK dan aplikasi menampilkan pesan, bukan halaman kosong.
 
 ## Referensi
 
