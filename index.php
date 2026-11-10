@@ -2,9 +2,18 @@
 // load config.php (fungsi cURL + API key)
 require_once __DIR__ . '/config/config.php';
 
+// tampilkan waktu berita dalam WIB
+date_default_timezone_set('Asia/Jakarta');
+
 // fungsi bantu: amankan teks sebelum ditampilkan di HTML
 function e($text) {
     return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
+}
+
+// fungsi bantu: hanya izinkan link http/https (mencegah skema berbahaya seperti javascript:)
+function link_aman($url) {
+    $url = trim((string)$url);
+    return preg_match('#^https?://#i', $url) ? $url : '#';
 }
 
 // fungsi bantu: potong teks panjang
@@ -169,7 +178,7 @@ if (NEWS_API_KEY === '' || NEWS_API_KEY === 'MASUKKAN_API_KEY_ANDA_DI_SINI') {
         $sumber  = isset($row['source']['name']) ? $row['source']['name'] : 'Sumber tidak diketahui';
         $penulis = !empty($row['author']) ? potong($row['author'], 40) : '';
         $deskripsi = !empty($row['description']) ? potong($row['description'], 140) : '';
-        $link    = isset($row['url']) ? $row['url'] : '#';
+        $link    = isset($row['url']) ? link_aman($row['url']) : '#';
         $waktu   = (!empty($row['publishedAt']) && strtotime($row['publishedAt']))
                     ? date('d M Y, H:i', strtotime($row['publishedAt'])) : '';
     ?>
