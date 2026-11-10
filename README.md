@@ -54,6 +54,12 @@ rest-client-newsapi
 └── README.md
 ```
 
+## Persyaratan
+
+- PHP 7.4 atau lebih baru dengan ekstensi **cURL** aktif (sudah aktif di XAMPP).
+- Koneksi internet.
+- API key gratis dari NewsAPI.org. Paket gratis (Developer) hanya berjalan dari `localhost`, bukan dari server publik.
+
 ## Cara Menjalankan
 
 1. Unduh atau salin repository ini ke folder `htdocs`.
@@ -75,6 +81,22 @@ http://localhost/rest-client-newsapi/
 
 Jika berhasil, berita akan tampil pada halaman utama.
 
+## Mengatasi Error SSL di XAMPP
+
+Jika muncul pesan `SSL certificate problem: unable to get local issuer certificate`:
+
+1. Unduh `cacert.pem` dari <https://curl.se/ca/cacert.pem>.
+2. Simpan di `C:\xampp\php\extras\ssl\cacert.pem`.
+3. Buka `C:\xampp\php\php.ini`, lalu isi atau ubah baris berikut:
+
+```ini
+curl.cainfo = "C:\xampp\php\extras\ssl\cacert.pem"
+```
+
+4. Restart Apache di XAMPP, lalu muat ulang halaman.
+
+Hanya jika cara di atas gagal dan aplikasi dijalankan **di komputer lokal**, ubah `SSL_VERIFY` menjadi `false` di `config/apikey.php`. Jangan dipakai di server sebenarnya.
+
 ## Keamanan API Key
 
 - Simpan API key di `config/apikey.php`.
@@ -83,14 +105,17 @@ Jika berhasil, berita akan tampil pada halaman utama.
 
 ## Pengujian
 
-| No. | Pengujian | Hasil yang Diharapkan |
-| --- | --- | --- |
-| 1 | Membuka halaman utama | Berita berhasil ditampilkan |
-| 2 | Mengubah kategori | Daftar berita menyesuaikan kategori |
-| 3 | Mengubah negara | Berita menyesuaikan negara |
-| 4 | Melakukan pencarian | Berita sesuai kata kunci ditampilkan |
-| 5 | Menggunakan API key yang salah | Pesan kesalahan ditampilkan |
-| 6 | Membuka melalui HP | Tampilan tetap rapi dan responsif |
+Pengujian dilakukan secara manual pada aplikasi yang berjalan di XAMPP (`http://localhost/rest-client-newsapi/`).
+
+| No. | Pengujian | Langkah | Hasil yang Diharapkan | Hasil Aktual | Status |
+| --- | --- | --- | --- | --- | --- |
+| 1 | Membuka halaman utama | Buka `index.php` | Berita teknologi AS tampil, status 200 OK | Berita tampil, 200 OK, 54 berita (lihat `screenshots/halaman-utama.png`) | Lulus |
+| 2 | Mengubah kategori | Klik tombol "Bisnis" | Daftar berita berubah ke kategori business | Request menjadi `category=business`, 200 OK, 55 berita (lihat `screenshots/kategori-dan-negara.png`) | Lulus |
+| 3 | Mengubah negara | Pilih "Indonesia" pada dropdown | Request memakai `country=id` | ISI SETELAH DIUJI | ISI |
+| 4 | Melakukan pencarian | Ketik "AI", klik Cari | Berita sesuai kata kunci tampil | ISI SETELAH DIUJI | ISI |
+| 5 | API key salah | Isi key asal di `config/apikey.php` | Pesan error "NewsAPI: ... (HTTP 401)" | ISI SETELAH DIUJI | ISI |
+| 6 | API key belum diisi | Hapus `config/apikey.php` | Pesan "API key belum diisi" | ISI SETELAH DIUJI | ISI |
+| 7 | Membuka melalui HP | Buka lewat IP komputer di jaringan yang sama | Tampilan rapi dan responsif | ISI SETELAH DIUJI | ISI |
 
 ## Referensi
 
